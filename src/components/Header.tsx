@@ -58,8 +58,7 @@ export const Header: React.FC<HeaderProps> = ({
           <img
             src="/logo.svg"
             alt="Zero Inertia"
-            className="h-7 sm:h-9 w-auto shrink-0"
-            style={{ maxWidth: '48px' }}
+            className="w-9 h-9 sm:w-11 sm:h-11 shrink-0 rounded-[8px] sm:rounded-[10px] overflow-hidden"
           />
           <div className="flex flex-col min-w-0">
             <div className="flex items-center gap-1 min-w-0">
