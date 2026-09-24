@@ -1,0 +1,6 @@
+{
+  "name": "Project: Zero Inertia",
+  "description": "Tactical Mission Operating System for conquering friction, breaking behavioral inertia, and maintaining 90-day momentum chains.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

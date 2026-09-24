@@ -1,0 +1,82 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // User Profile
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId)
+        && request.resource.data.uid == userId
+        && request.resource.data.email is string
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() <= 100;
+      allow update: if isOwner(userId)
+        && request.resource.data.uid == userId
+        && request.resource.data.email is string
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() <= 100;
+      allow delete: if false;
+
+      // User Missions
+      match /missions/{missionId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId)
+          && isValidId(missionId)
+          && request.resource.data.userId == userId
+          && request.resource.data.name is string
+          && request.resource.data.name.size() <= 150
+          && request.resource.data.totalDays is number
+          && request.resource.data.totalDays >= 7
+          && request.resource.data.totalDays <= 365;
+        allow update: if isOwner(userId)
+          && isValidId(missionId)
+          && request.resource.data.userId == userId
+          && request.resource.data.name is string
+          && request.resource.data.name.size() <= 150;
+        allow delete: if isOwner(userId) && isValidId(missionId);
+
+        // Daily Logs within Mission
+        match /logs/{logId} {
+          allow read: if isOwner(userId);
+          allow create: if isOwner(userId)
+            && isValidId(logId)
+            && request.resource.data.userId == userId
+            && request.resource.data.missionId == missionId
+            && request.resource.data.dayNumber is number
+            && request.resource.data.level in ['MAX', 'STANDARD', 'MVO', 'MISSED'];
+          allow update: if isOwner(userId)
+            && isValidId(logId)
+            && request.resource.data.userId == userId
+            && request.resource.data.missionId == missionId;
+          allow delete: if isOwner(userId) && isValidId(logId);
+        }
+      }
+    }
+
+    // Community Leaderboard (Public read for active operatives, write restricted to own UID)
+    match /leaderboard/{userId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isOwner(userId)
+        && isValidId(userId)
+        && request.resource.data.userId == userId
+        && request.resource.data.displayName is string
+        && request.resource.data.displayName.size() <= 100
+        && request.resource.data.momentumScore is number
+        && request.resource.data.currentStreak is number
+        && request.resource.data.totalActiveDays is number;
+      allow delete: if isOwner(userId);
+    }
+  }
+}
