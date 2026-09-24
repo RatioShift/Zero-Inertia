@@ -1,29 +1,143 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
-  <!-- Background square with rounded corners -->
-  <rect width="200" height="200" rx="40" fill="#0B1120"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+  <defs>
+    <!-- Website-matched gradient: bright blue top → deep navy bottom -->
+    <linearGradient id="g" x1="200" y1="40" x2="200" y2="370" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#3B82F6"/>
+      <stop offset="28%"  stop-color="#2563EB"/>
+      <stop offset="55%"  stop-color="#1D4ED8"/>
+      <stop offset="80%"  stop-color="#004eba"/>
+      <stop offset="100%" stop-color="#0B3558"/>
+    </linearGradient>
+  </defs>
 
-  <!-- Upward arrow above figure -->
-  <line x1="100" y1="30" x2="100" y2="56" stroke="white" stroke-width="2" stroke-linecap="round"/>
-  <polyline points="93,38 100,30 107,38" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!--
+    Floating man silhouette — arms spread wide, head up, legs hanging.
+    Inspired by: floating figure with outstretched arms against the sky.
+    Clean, smooth, single unified shape.
+  -->
 
-  <!-- Human figure silhouette — floating upright, head tilted up -->
-  <!-- Head -->
-  <circle cx="100" cy="68" r="9" fill="white"/>
-  <!-- Neck + torso -->
-  <path d="M96 77 C94 82 92 95 93 108 C94 118 106 118 107 108 C108 95 106 82 104 77 Z" fill="white"/>
-  <!-- Left arm -->
-  <path d="M93 82 C88 87 84 96 85 100" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
-  <!-- Right arm -->
-  <path d="M107 82 C112 87 116 96 115 100" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
-  <!-- Left leg -->
-  <path d="M96 108 C95 118 94 130 93 140" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
-  <!-- Right leg -->
-  <path d="M104 108 C105 118 106 130 107 140" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
-  <!-- Left foot -->
-  <path d="M93 140 C91 143 88 145 87 145" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
-  <!-- Right foot -->
-  <path d="M107 140 C109 143 112 145 113 145" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- HEAD -->
+  <ellipse cx="200" cy="68" rx="28" ry="30" fill="url(#g)"/>
 
-  <!-- Small dot below (ground left behind) -->
-  <circle cx="100" cy="163" r="3" fill="white" opacity="0.5"/>
+  <!-- NECK -->
+  <rect x="190" y="95" width="20" height="18" rx="8" fill="url(#g)"/>
+
+  <!-- TORSO — tapered, natural body shape -->
+  <path d="
+    M160 112
+    C152 116 146 126 146 140
+    C146 158 150 172 156 180
+    C162 188 176 192 200 192
+    C224 192 238 188 244 180
+    C250 172 254 158 254 140
+    C254 126 248 116 240 112
+    C228 107 216 104 200 104
+    C184 104 172 107 160 112Z
+  " fill="url(#g)"/>
+
+  <!-- LEFT ARM — outstretched wide to the left, slightly angled down -->
+  <path d="
+    M152 124
+    C140 126 120 130 98 136
+    C76 142 56 148 40 155
+    C30 159 26 163 28 168
+    C30 173 36 174 46 172
+    C62 168 82 162 104 156
+    C126 150 146 144 158 138
+    C162 130 160 124 152 124Z
+  " fill="url(#g)"/>
+
+  <!-- LEFT HAND -->
+  <path d="
+    M28 155
+    C22 158 16 162 12 166
+    C8 170 8 175 12 177
+    C16 179 22 177 28 173
+    C34 169 38 164 36 159
+    C34 156 31 154 28 155Z
+  " fill="url(#g)"/>
+
+  <!-- LEFT FINGERS -->
+  <ellipse cx="10" cy="171" rx="5" ry="8" transform="rotate(-20 10 171)" fill="url(#g)"/>
+  <ellipse cx="16" cy="179" rx="4" ry="7" transform="rotate(-10 16 179)" fill="url(#g)"/>
+  <ellipse cx="24" cy="182" rx="4" ry="7" fill="url(#g)"/>
+
+  <!-- RIGHT ARM — outstretched wide to the right, slightly angled down -->
+  <path d="
+    M248 124
+    C260 126 280 130 302 136
+    C324 142 344 148 360 155
+    C370 159 374 163 372 168
+    C370 173 364 174 354 172
+    C338 168 318 162 296 156
+    C274 150 254 144 242 138
+    C238 130 240 124 248 124Z
+  " fill="url(#g)"/>
+
+  <!-- RIGHT HAND -->
+  <path d="
+    M372 155
+    C378 158 384 162 388 166
+    C392 170 392 175 388 177
+    C384 179 378 177 372 173
+    C366 169 362 164 364 159
+    C366 156 369 154 372 155Z
+  " fill="url(#g)"/>
+
+  <!-- RIGHT FINGERS -->
+  <ellipse cx="390" cy="171" rx="5" ry="8" transform="rotate(20 390 171)" fill="url(#g)"/>
+  <ellipse cx="384" cy="179" rx="4" ry="7" transform="rotate(10 384 179)" fill="url(#g)"/>
+  <ellipse cx="376" cy="182" rx="4" ry="7" fill="url(#g)"/>
+
+  <!-- HIPS / PELVIS bridge -->
+  <path d="
+    M158 185
+    C158 192 162 198 166 202
+    C176 208 224 208 234 202
+    C238 198 242 192 242 185
+    C230 190 216 192 200 192
+    C184 192 170 190 158 185Z
+  " fill="url(#g)"/>
+
+  <!-- LEFT LEG — hanging down naturally -->
+  <path d="
+    M172 200
+    C168 218 165 240 164 262
+    C163 282 164 300 166 316
+    C168 328 174 334 182 334
+    C190 334 196 328 197 316
+    C198 302 197 282 197 262
+    C197 240 196 218 192 200Z
+  " fill="url(#g)"/>
+
+  <!-- LEFT FOOT -->
+  <path d="
+    M164 318
+    C161 326 159 334 158 340
+    C157 346 158 352 162 354
+    C167 356 174 353 178 347
+    C182 341 183 333 181 324
+    C176 322 170 321 164 318Z
+  " fill="url(#g)"/>
+
+  <!-- RIGHT LEG — hanging down, slight natural offset -->
+  <path d="
+    M208 200
+    C212 218 215 240 216 262
+    C217 282 216 300 214 316
+    C212 328 206 334 198 334
+    C190 334 184 328 183 316
+    C182 302 183 282 203 262
+    C205 240 206 218 208 200Z
+  " fill="url(#g)"/>
+
+  <!-- RIGHT FOOT -->
+  <path d="
+    M216 318
+    C219 326 221 334 222 340
+    C223 346 222 352 218 354
+    C213 356 206 353 202 347
+    C198 341 197 333 199 324
+    C204 322 210 321 216 318Z
+  " fill="url(#g)"/>
 </svg>
