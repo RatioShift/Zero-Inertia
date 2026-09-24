@@ -384,75 +384,67 @@ export default function App() {
               onTriggerEmergencyWithTask={handleLaunchEmergencyWithTask}
             />
 
-            {/* Row 2: Check-in (left) + Telemetry & Badges (right) */}
-            <div className="grid grid-cols-1 xl:grid-cols-12 gap-5 sm:gap-6 items-start">
-              {/* Check-in column — 7/12 on xl */}
-              <div className="xl:col-span-7">
-                <DailyStatusLogger
-                  currentDay={dayToLog}
-                  totalDays={activeMission.totalDays}
-                  existingLog={todayLog}
-                  onSaveLog={handleSaveLog}
-                />
-              </div>
+            {/* Row 2: Momentum Check-in & Chain Lock (Full Width) */}
+            <DailyStatusLogger
+              currentDay={dayToLog}
+              totalDays={activeMission.totalDays}
+              existingLog={todayLog}
+              onSaveLog={handleSaveLog}
+            />
 
-              {/* Right column — Telemetry + Badges — 5/12 on xl */}
-              <div className="xl:col-span-5 space-y-5 sm:space-y-6">
-                {/* Momentum Trajectory Visualization */}
-                <MomentumAnalytics
-                  mission={activeMission}
-                  stats={stats}
-                  logs={logs}
-                  variant="sidebar"
-                />
+            {/* Row 3: Momentum Telemetry & Trajectory Analytics (Full Width) */}
+            <MomentumAnalytics
+              mission={activeMission}
+              stats={stats}
+              logs={logs}
+              variant="full"
+            />
 
-                {/* Behavioral Badges & Milestone Progress Card */}
-                <div className="calendly-card p-5 space-y-3">
-                  <div className="flex items-center justify-between pb-3 border-b border-hairline">
-                    <div className="flex items-center gap-2">
-                      <div className="p-1.5 rounded-[8px] bg-pebble border border-hairline text-amber-500 shadow-xs">
-                        <Trophy className="w-3.5 h-3.5" />
-                      </div>
-                      <div>
-                        <span className="font-bold text-sm text-ink-navy block leading-tight">Milestones & Badges</span>
-                        <span className="text-[11px] font-medium text-slate-gray">
-                          {unlockedCount} of {badges.length} Unlocked
-                        </span>
-                      </div>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setIsGamificationOpen(true)}
-                      className="btn-outline text-xs py-1 px-2.5 gap-1"
-                    >
-                      <span>Leaderboard</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </button>
+            {/* Row 4: Behavioral Badges & Milestone Progress (Full Width) */}
+            <div className="calendly-card p-5 space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-hairline">
+                <div className="flex items-center gap-2.5">
+                  <div className="p-2 rounded-[10px] bg-pebble border border-hairline text-amber-500 shadow-xs">
+                    <Trophy className="w-4 h-4" />
                   </div>
-
-                  {/* Badges preview row */}
-                  <div className="flex items-center gap-2 overflow-x-auto py-0.5">
-                    {badges.map((b) => (
-                      <div
-                        key={b.id}
-                        title={`${b.title} (${b.isUnlocked ? 'Unlocked' : 'Locked'})`}
-                        className={`w-10 h-10 shrink-0 rounded-[10px] border flex items-center justify-center text-lg transition-transform hover:scale-110 cursor-pointer ${
-                          b.isUnlocked
-                            ? 'bg-paper border-signal-blue ring-2 ring-signal-blue/20 shadow-xs'
-                            : 'bg-pebble border-hairline opacity-40 grayscale'
-                        }`}
-                        onClick={() => setIsGamificationOpen(true)}
-                      >
-                        {b.icon}
-                      </div>
-                    ))}
+                  <div>
+                    <span className="font-bold text-sm sm:text-base text-ink-navy block leading-tight">Milestones & Badges</span>
+                    <span className="text-xs font-medium text-slate-gray">
+                      {unlockedCount} of {badges.length} Unlocked · Reinforcing Neuro-Identity
+                    </span>
                   </div>
-
-                  <p className="text-xs text-slate-gray leading-relaxed">
-                    Consistent execution solidifies neuro-identity. Every 2-min MVO defends your chain.
-                  </p>
                 </div>
+                <button
+                  type="button"
+                  onClick={() => setIsGamificationOpen(true)}
+                  className="btn-outline text-xs py-1.5 px-3 gap-1.5 self-start sm:self-auto cursor-pointer"
+                >
+                  <span>Open Leaderboard</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
               </div>
+
+              {/* Badges preview row */}
+              <div className="flex items-center gap-2.5 overflow-x-auto py-1">
+                {badges.map((b) => (
+                  <div
+                    key={b.id}
+                    title={`${b.title} (${b.isUnlocked ? 'Unlocked' : 'Locked'})`}
+                    className={`w-11 h-11 shrink-0 rounded-[12px] border flex items-center justify-center text-xl transition-transform hover:scale-110 cursor-pointer ${
+                      b.isUnlocked
+                        ? 'bg-paper border-signal-blue ring-2 ring-signal-blue/20 shadow-xs'
+                        : 'bg-pebble border-hairline opacity-40 grayscale'
+                    }`}
+                    onClick={() => setIsGamificationOpen(true)}
+                  >
+                    {b.icon}
+                  </div>
+                ))}
+              </div>
+
+              <p className="text-xs text-slate-gray leading-relaxed">
+                Consistent execution solidifies neuro-identity. Every 2-minute MVO defends your unbreakable chain.
+              </p>
             </div>
 
             {/* Row 3: Full Width 90-Day Visual Chain Matrix */}
