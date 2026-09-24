@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Background square with rounded corners -->
+  <rect width="200" height="200" rx="40" fill="#0B1120"/>
+
+  <!-- Upward arrow above figure -->
+  <line x1="100" y1="30" x2="100" y2="56" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <polyline points="93,38 100,30 107,38" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Human figure silhouette — floating upright, head tilted up -->
+  <!-- Head -->
+  <circle cx="100" cy="68" r="9" fill="white"/>
+  <!-- Neck + torso -->
+  <path d="M96 77 C94 82 92 95 93 108 C94 118 106 118 107 108 C108 95 106 82 104 77 Z" fill="white"/>
+  <!-- Left arm -->
+  <path d="M93 82 C88 87 84 96 85 100" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- Right arm -->
+  <path d="M107 82 C112 87 116 96 115 100" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- Left leg -->
+  <path d="M96 108 C95 118 94 130 93 140" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- Right leg -->
+  <path d="M104 108 C105 118 106 130 107 140" stroke="white" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <!-- Left foot -->
+  <path d="M93 140 C91 143 88 145 87 145" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- Right foot -->
+  <path d="M107 140 C109 143 112 145 113 145" stroke="white" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+  <!-- Small dot below (ground left behind) -->
+  <circle cx="100" cy="163" r="3" fill="white" opacity="0.5"/>
+</svg>

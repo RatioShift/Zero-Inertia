@@ -6,6 +6,10 @@ import {
   signInAnonymously,
   signOut,
   updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
+  sendEmailVerification,
+  sendPasswordResetEmail,
   User,
 } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
@@ -19,6 +23,8 @@ interface AuthContextType {
   signIn: (email: string, pass: string) => Promise<void>;
   signUp: (email: string, pass: string, displayName: string) => Promise<void>;
   signInGuest: (guestCallsign?: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
+  sendPasswordReset: (email: string) => Promise<void>;
   logout: () => Promise<void>;
   updateCallsign: (name: string) => Promise<void>;
 }
@@ -127,6 +133,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const cred = await createUserWithEmailAndPassword(auth, email, pass);
       await updateProfile(cred.user, { displayName });
+      // Send verification email
+      await sendEmailVerification(cred.user).catch(() => {});
       const userRef = doc(db, 'users', cred.user.uid);
       await setDoc(userRef, {
         uid: cred.user.uid,
@@ -150,6 +158,39 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const signInWithGoogle = async () => {
+    setIsLoading(true);
+    try {
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'select_account' });
+      const cred = await signInWithPopup(auth, provider);
+      localStorage.removeItem('zero_inertia_guest_user');
+      // Ensure Firestore profile exists
+      const userRef = doc(db, 'users', cred.user.uid);
+      await setDoc(userRef, {
+        uid: cred.user.uid,
+        email: cred.user.email,
+        displayName: cred.user.displayName || 'Tactical Operative',
+        photoURL: cred.user.photoURL,
+        updatedAt: new Date().toISOString(),
+      }, { merge: true });
+      setUser({
+        uid: cred.user.uid,
+        email: cred.user.email,
+        displayName: cred.user.displayName || 'Tactical Operative',
+        photoURL: cred.user.photoURL,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const sendPasswordReset = async (email: string) => {
+    await sendPasswordResetEmail(auth, email, {
+      url: 'https://zero-inertia.vercel.app',
+    });
   };
 
   const signInGuest = async (guestCallsign: string = 'Ghost Operative') => {
@@ -215,6 +256,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         signIn,
         signUp,
         signInGuest,
+        signInWithGoogle,
+        sendPasswordReset,
         logout,
         updateCallsign,
       }}

@@ -372,23 +372,22 @@ export default function App() {
 
         {/* Tab 1: Cockpit Dashboard */}
         {activeTab === 'cockpit' && (
-          <div className="space-y-6 sm:space-y-8 animate-in fade-in duration-200">
-            {/* Main Grid Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
-              {/* Primary Execution Column (7 Cols on desktop) */}
-              <div className="lg:col-span-7 space-y-6 sm:space-y-8">
-                {/* Daily Directive & AI Micro-MVO Generator */}
-                <DailyTargetSection
-                  mission={activeMission}
-                  currentPhase={stats.currentPhase}
-                  dayInMission={stats.dayInMission}
-                  initialTarget={todayLog?.target || cachedMvo?.target || ''}
-                  initialMvo={cachedMvo?.mvo || null}
-                  onSaveMvoDeconstruction={handleSaveMvoDeconstruction}
-                  onTriggerEmergencyWithTask={handleLaunchEmergencyWithTask}
-                />
+          <div className="space-y-5 sm:space-y-6 animate-in fade-in duration-200">
+            {/* Row 1: Daily Target & AI MVO Generator (Full Width) */}
+            <DailyTargetSection
+              mission={activeMission}
+              currentPhase={stats.currentPhase}
+              dayInMission={stats.dayInMission}
+              initialTarget={todayLog?.target || cachedMvo?.target || ''}
+              initialMvo={cachedMvo?.mvo || null}
+              onSaveMvoDeconstruction={handleSaveMvoDeconstruction}
+              onTriggerEmergencyWithTask={handleLaunchEmergencyWithTask}
+            />
 
-                {/* 1-Click Momentum Classification & Check-in */}
+            {/* Row 2: Check-in (left) + Telemetry & Badges (right) */}
+            <div className="grid grid-cols-1 xl:grid-cols-12 gap-5 sm:gap-6 items-start">
+              {/* Check-in column — 7/12 on xl */}
+              <div className="xl:col-span-7">
                 <DailyStatusLogger
                   currentDay={dayToLog}
                   totalDays={activeMission.totalDays}
@@ -397,8 +396,8 @@ export default function App() {
                 />
               </div>
 
-              {/* Secondary Column: Telemetry Visuals + Behavioral Badges (5 Cols on desktop) */}
-              <div className="lg:col-span-5 space-y-6 sm:space-y-8">
+              {/* Right column — Telemetry + Badges — 5/12 on xl */}
+              <div className="xl:col-span-5 space-y-5 sm:space-y-6">
                 {/* Momentum Trajectory Visualization */}
                 <MomentumAnalytics
                   mission={activeMission}
@@ -408,39 +407,36 @@ export default function App() {
                 />
 
                 {/* Behavioral Badges & Milestone Progress Card */}
-                <div className="calendly-card p-6 space-y-4">
+                <div className="calendly-card p-5 space-y-3">
                   <div className="flex items-center justify-between pb-3 border-b border-hairline">
-                    <div className="flex items-center gap-2.5">
-                      <div className="p-2 rounded-[8px] bg-pebble border border-hairline text-amber-500 shadow-xs">
-                        <Trophy className="w-4 h-4" />
+                    <div className="flex items-center gap-2">
+                      <div className="p-1.5 rounded-[8px] bg-pebble border border-hairline text-amber-500 shadow-xs">
+                        <Trophy className="w-3.5 h-3.5" />
                       </div>
                       <div>
-                        <span className="font-bold text-base text-ink-navy block">
-                          Milestones & Badges
-                        </span>
-                        <span className="text-xs font-semibold text-slate-gray">
+                        <span className="font-bold text-sm text-ink-navy block leading-tight">Milestones & Badges</span>
+                        <span className="text-[11px] font-medium text-slate-gray">
                           {unlockedCount} of {badges.length} Unlocked
                         </span>
                       </div>
                     </div>
-
                     <button
                       type="button"
                       onClick={() => setIsGamificationOpen(true)}
-                      className="btn-outline text-xs py-1.5 px-3"
+                      className="btn-outline text-xs py-1 px-2.5 gap-1"
                     >
                       <span>Leaderboard</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <ArrowRight className="w-3 h-3" />
                     </button>
                   </div>
 
                   {/* Badges preview row */}
-                  <div className="flex items-center gap-2.5 overflow-x-auto py-1">
+                  <div className="flex items-center gap-2 overflow-x-auto py-0.5">
                     {badges.map((b) => (
                       <div
                         key={b.id}
                         title={`${b.title} (${b.isUnlocked ? 'Unlocked' : 'Locked'})`}
-                        className={`w-11 h-11 shrink-0 rounded-[12px] border flex items-center justify-center text-xl transition-transform hover:scale-110 cursor-pointer ${
+                        className={`w-10 h-10 shrink-0 rounded-[10px] border flex items-center justify-center text-lg transition-transform hover:scale-110 cursor-pointer ${
                           b.isUnlocked
                             ? 'bg-paper border-signal-blue ring-2 ring-signal-blue/20 shadow-xs'
                             : 'bg-pebble border-hairline opacity-40 grayscale'
@@ -453,13 +449,13 @@ export default function App() {
                   </div>
 
                   <p className="text-xs text-slate-gray leading-relaxed">
-                    Consistent execution solidifies neuro-identity. Every 2-minute MVO defends your active chain.
+                    Consistent execution solidifies neuro-identity. Every 2-min MVO defends your chain.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Full Width 90-Day Visual Chain Matrix */}
+            {/* Row 3: Full Width 90-Day Visual Chain Matrix */}
             <ChainMatrix
               mission={activeMission}
               logs={logs}

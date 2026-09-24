@@ -227,7 +227,8 @@
   gap: 5px;
 }
 
-/* Inputs */
+/* Inputs — padding-left is intentionally NOT set here.
+   Use Tailwind pl-* (e.g. pl-10) directly on the element to add left padding for icons. */
 .calendly-input {
   background-color: var(--color-paper);
   border: 1px solid var(--color-hairline);
@@ -235,8 +236,11 @@
   color: var(--color-ink-navy);
   padding: 10px 14px;
   font-size: 14px;
+  line-height: 1.5;
   outline: none;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .calendly-input:focus {

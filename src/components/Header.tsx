@@ -55,9 +55,11 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="max-w-[1200px] mx-auto px-2.5 sm:px-6 h-13 sm:h-16 flex items-center justify-between gap-1.5 sm:gap-2 overflow-hidden">
         {/* Brand Identity */}
         <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 shrink-0">
-          <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-[8px] bg-pebble border border-hairline flex items-center justify-center text-signal-blue font-bold text-[10px] sm:text-sm shrink-0 shadow-xs">
-            ZI
-          </div>
+          <img
+            src="/logo.svg"
+            alt="Zero Inertia Logo"
+            className="w-7 h-7 sm:w-9 sm:h-9 shrink-0 rounded-[8px] shadow-xs"
+          />
           <div className="flex flex-col min-w-0">
             <div className="flex items-center gap-1 min-w-0">
               <span className="font-bold text-xs sm:text-sm lg:text-base tracking-tight text-ink-navy whitespace-nowrap">
